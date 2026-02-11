@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Especialização em Liderança e Gestão em Saúde | ESP-Floripa</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+
+    /* Estilos do Calendário */
+    .tooltip {
+      position: absolute;
+      visibility: hidden;
+      background-color: #1e293b;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 6px 12px;
+      z-index: 50;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s, transform 0.3s;
+      width: max-content;
+      max-width: 220px;
+      font-size: 0.7rem;
+      pointer-events: none;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    }
+
+    .tooltip::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: #1e293b transparent transparent transparent;
+    }
+
+    .calendar-day:hover .tooltip {
+      visibility: visible;
+      opacity: 1;
+      transform: translateX(-50%) translateY(-5px);
+    }
+
+    /* Estilos dos Módulos */
+    .module-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    .module-content.open { max-height: 1000px; }
+
+    .text-shadow-lg { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-900">
+
+  <!-- TELA DE LOGIN -->
+  <div id="login-overlay" class="fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://i.imgur.com/zoFnlAt.jpeg');"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-blue-900/80 to-slate-900/90"></div>
+
+    <div class="relative z-10 w-full max-w-md p-8 rounded-2xl backdrop-blur-sm bg-white/10 border border-white/20 shadow-2xl text-center">
+      <div class="mb-8">
+        <h1 class="text-3xl font-bold text-amber-300 mb-2 text-shadow-lg">Liderança e Gestão em Saúde</h1>
+        <p class="text-lg font-medium text-amber-100/90 mb-1">Turma 2026-2028</p>
+        <p class="text-sm text-amber-200/70 uppercase tracking-widest">Escola de Saúde Pública de Florianópolis</p>
+      </div>
+      <form id="login-form" class="space-y-4">
+        <input type="password" id="password-input" class="w-full px-6 py-4 bg-white/10 border border-white/30 rounded-xl text-white placeholder-white/50 text-center focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all" placeholder="Senha de acesso">
+        <p id="error-message" class="text-red-400 text-sm font-medium hidden">Senha incorreta. Tente novamente.</p>
+        <button type="submit" class="w-full bg-amber-500 hover:bg-amber-400 text-blue-950 font-bold py-4 rounded-xl shadow-xl transition transform active:scale-95">ENTRAR NO PORTAL</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <div id="main-content" class="hidden opacity-0 transition-opacity duration-700">
+    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-40 border-b border-slate-200">
+      <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 bg-blue-700 rounded-lg flex items-center justify-center text-white font-bold">E</div>
+            <span class="text-lg font-bold bg-gradient-to-r from-blue-800 to-blue-600 bg-clip-text text-transparent">ESP-FLORIPA</span>
+        </div>
+        <div class="space-x-6 hidden md:flex text-sm">
+          <a href="#inicio" class="text-slate-600 hover:text-blue-700 font-medium transition">Início</a>
+          <a href="#calendario" class="text-slate-600 hover:text-blue-700 font-medium transition">Calendário</a>
+          <a href="#modulos" class="text-slate-600 hover:text-blue-700 font-medium transition">Módulos</a>
+          <a href="#repositorio" class="text-slate-600 hover:text-blue-700 font-medium transition">Repositório</a>
+        </div>
+        <button id="logout-btn" class="p-2 text-slate-400 hover:text-red-500 transition">Sair</button>
+      </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="relative text-white py-24 md:py-40 bg-cover bg-center" style="background-image: url('https://i.imgur.com/zoFnlAt.jpeg');">
+      <div class="absolute inset-0 bg-blue-900/75"></div>
+      <div class="relative z-10 container mx-auto px-6 text-center">
+        <span class="inline-block px-4 py-1 bg-amber-500/20 border border-amber-500/50 text-amber-300 rounded-full text-xs font-bold tracking-widest uppercase mb-6">Especialização Lato Sensu</span>
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-4 text-shadow-lg leading-tight text-white">Liderança e Gestão em Saúde</h1>
+        <p class="text-xl md:text-2xl font-light text-blue-100 max-w-3xl mx-auto mb-8">Informações Acadêmicas e Cronograma Oficial de Aulas - Turma 2.</p>
+        <div class="flex flex-col sm:flex-row justify-center gap-4">
+            <div class="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/10">
+                <span class="block text-amber-400 text-sm uppercase font-bold tracking-tighter">Início</span>
+                <span class="text-xl font-semibold text-white">Março 2026</span>
+            </div>
+            <div class="bg-white/10 backdrop-blur-md p-4 rounded-xl border border-white/10">
+                <span class="block text-amber-400 text-sm uppercase font-bold tracking-tighter">Conclusão</span>
+                <span class="text-xl font-semibold text-white">Fevereiro 2028</span>
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CALENDÁRIO ACADÊMICO -->
+    <section id="calendario" class="py-20 bg-slate-50">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-10">
+          <h2 class="text-3xl font-bold text-slate-800 mb-2">Calendário Acadêmico</h2>
+          <p class="text-slate-500">Cronograma de atividades exclusivo para as Quartas-feiras</p>
+        </div>
+
+        <!-- Legenda -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-10 max-w-5xl mx-auto text-center">
+            <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Legenda de Atividades</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-[10px] md:text-xs font-bold uppercase tracking-wider">
+                <div class="flex items-center justify-center"><span class="w-4 h-4 rounded bg-indigo-700 mr-2 shadow-sm"></span> <span class="text-slate-600">Encontro Presencial</span></div>
+                <div class="flex items-center justify-center"><span class="w-4 h-4 rounded bg-indigo-400 mr-2 shadow-sm"></span> <span class="text-slate-600">Atividade EAD</span></div>
+                <div class="flex items-center justify-center"><span class="w-4 h-4 rounded bg-red-500 mr-2 shadow-sm"></span> <span class="text-slate-600">Feriado</span></div>
+                <div class="flex items-center justify-center"><span class="w-4 h-4 rounded bg-amber-400 mr-2 shadow-sm"></span> <span class="text-slate-600">Recesso Acadêmico</span></div>
+            </div>
+        </div>
+
+        <div class="flex justify-center space-x-2 mb-10" id="year-buttons">
+          <button class="year-btn bg-indigo-700 text-white px-8 py-2.5 rounded-xl font-bold transition shadow-lg shadow-indigo-100" data-year="2026">2026</button>
+          <button class="year-btn bg-white text-slate-600 hover:bg-slate-50 px-8 py-2.5 rounded-xl font-bold border border-slate-200 transition" data-year="2027">2027</button>
+          <button class="year-btn bg-white text-slate-600 hover:bg-slate-50 px-8 py-2.5 rounded-xl font-bold border border-slate-200 transition" data-year="2028">2028</button>
+        </div>
+
+        <div id="calendar-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+      </div>
+    </section>
+
+    <!-- MATRIZ CURRICULAR -->
+    <section id="modulos" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+          <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">Estrutura Curricular</h2>
+            <p class="text-slate-500 max-w-2xl mx-auto">Detalhamento dos 12 módulos e objetos de aprendizagem do curso.</p>
+          </div>
+          <div id="modules-accordion" class="max-w-4xl mx-auto space-y-4"></div>
+        </div>
+    </section>
+
+    <!-- REPOSITÓRIO -->
+    <section id="repositorio" class="py-24 bg-slate-50 border-t border-slate-200">
+      <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl font-bold text-slate-800 mb-8">Repositório Central</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <!-- Card Presença -->
+          <a href="https://drive.google.com/drive/folders/1_fB4aBJlYsZjeiakcR2l8o_DwI02dc3p?usp=sharing" target="_blank" 
+             class="group p-8 rounded-3xl bg-white border border-slate-200 hover:border-blue-300 hover:shadow-lg transition duration-300 text-left">
+            <div class="w-12 h-12 bg-indigo-600 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-indigo-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-800 mb-2">Listas de Presença</h3>
+            <p class="text-slate-500 text-sm">Controle de frequência e assinaturas digitais.</p>
+          </a>
+
+          <!-- Card Aproveitamento -->
+          <a href="https://docs.google.com/spreadsheets/d/1b-7qSF9EzROBxD20FN0RKQbSMfk6dCBY/edit?usp=sharing&ouid=110410574929128285229&rtpof=true&sd=true" target="_blank" 
+             class="group p-8 rounded-3xl bg-white border border-slate-200 hover:border-teal-300 hover:shadow-lg transition duration-300 text-left">
+            <div class="w-12 h-12 bg-teal-600 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-teal-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-800 mb-2">Relatório Acadêmico</h3>
+            <p class="text-slate-500 text-sm">Acompanhamento de conceitos e notas finais.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-slate-900 text-white py-12 text-center text-xs opacity-50 uppercase tracking-widest">
+      &copy; Escola de Saúde Pública de Florianópolis
+    </footer>
+  </div>
+
+  <script>
+    // DADOS DOS MÓDULOS
+    const modulesData = [
+      {
+        title: "Módulo 1 - Autoconhecimento e desenvolvimento de perfil de liderança",
+        ch: 28,
+        content: ["Acolhimento", "Autoconhecimento e Estilos de Liderança", "Networking e Personal Branding", "Pertencimento", "Cultura Organizacional", "Liderança ética", "Liderança empática"]
+      },
+      {
+        title: "Módulo 2 - Trabalho em equipe e Gestão de time",
+        ch: 28,
+        content: ["Recrutamento, seleção e sucessão - Diversidade, equidade e inclusão", "Trabalho em equipe e manejo de times de alta performance", "Clima Organizacional", "Metas e Objetivos", "Avaliação de desempenho e Avaliação da Satisfação do Usuário", "Gestão de Conflitos"]
+      },
+      {
+        title: "Módulo 3 - Criatividade, adaptabilidade e trabalho em ambientes de alta pressão",
+        ch: 32,
+        content: ["Inteligência Emocional e fenômenos psicológicos no contexto de liderança", "Comunicação não violenta", "Priorização e Tomada de decisão", "Adaptabilidade, criatividade e Inovação", "Ferramentas inovativas aplicadas ao setor saúde", "Desing Thinking"]
+      },
+      {
+        title: "Módulo 4 - Comunicação Efetiva",
+        ch: 28,
+        content: ["Comunicação escrita, Redes Sociais e Corporativas", "Comunicação oral interpessoal e apresentação para grupos ou platéias", "Entrevistas", "Feedback"]
+      },
+      {
+        title: "Módulo 5 - Princípios Gerais da Gestão do Sistema de saúde",
+        ch: 52,
+        content: ["Organização dos sistemas de saúde", "Sistemas de Saúde Comparados 1", "Sistemas de Saúde Comparados 2", "Novos Conceitos em Estruturação de Sistemas de Saúde", "Sistemas de Saúde Comparados 3", "Modelos Organizacionais", "Direito Sanitário", "Noções da setorialização e financiamento em saúde", "Conceitos importantes na gestão pública e privada"]
+      },
+      {
+        title: "Módulo 6 - Analise da situação de saúde",
+        ch: 16,
+        content: ["Indicadores/Diagnóstico", "Análise de Situação de Saúde"]
+      },
+      {
+        title: "Módulo 7 - Planejamento e gestão estratégica de processos, projetos e programas",
+        ch: 48,
+        content: ["Teoria e conceitos", "Priorização e estudo dos problemas", "Definição de estratégia e plano de ação", "Monitoramento e avaliação", "Elaboração de programas e projetos", "Gestão de processos", "Gestão da mudança"]
+      },
+      {
+        title: "Módulo 8 - Gestão local de processos, projetos e programas",
+        ch: 20,
+        content: ["Base histórica e teórica da APS", "Planejamento e gestão local", "Programas de saúde", "Noções de Gestão hospitalar"]
+      },
+      {
+        title: "Módulo 9 - Articulação intra e intersetorial para a gestão estratégica do Sistema de Saúde",
+        ch: 20,
+        content: ["Controle social e participação popular", "Comissões intergestores", "Articulação de rede", "Regulação"]
+      },
+      {
+        title: "Módulo 10 - Investigação em Saúde",
+        ch: 20,
+        content: ["Introdução à Investigação em Saúde", "Introdução à methodology de pesquisa em saúde (tipos de metodologia)", "Ética em Pesquisa", "Estruturação do projeto de pesquisa: definição de tema, problema e objeto", "Estruturação do projeto de pesquisa: hipótese, justificativa e objetivos"]
+      },
+      {
+        title: "Módulo 11 e 12 - Desenvolvimento de projeto de intervenção e TCC",
+        ch: 68,
+        content: ["Projeto de intervenção (Orientação)", "Apresentação TCC"]
+      }
+    ];
+
+    // CONFIGURAÇÃO DO CALENDÁRIO
+    const eadDates = {
+      2026: [
+        {m: 4, d: 8}, {m: 4, d: 15}, {m: 4, d: 29}, 
+        {m: 5, d: 13}, {m: 6, d: 3}, {m: 7, d: 1}, 
+        {m: 7, d: 22}, {m: 7, d: 29}, {m: 8, d: 5}, 
+        {m: 8, d: 19}, {m: 9, d: 30}, {m: 10, d: 28}, {m: 12, d: 16}
+      ],
+      2027: [
+        {m: 1, d: 27}, {m: 4, d: 14}, {m: 6, d: 30}, // Trocado 23/06 por 30/06
+        {m: 7, d: 21}, // Trocado 14/07 por 21/07
+        {m: 8, d: 25}  // Trocado 18/08 por 25/08
+      ],
+      2028: [
+        {m: 1, d: 26}, {m: 2, d: 2} // Removido 19/01 (Presencial), mantido 26/01 e 02/02
+      ]
+    };
+
+    const holidays = [
+        {y: 2026, m: 4, d: 21, label: 'Tiradentes'}, {y: 2026, m: 5, d: 1, label: 'Dia do Trabalho'}, {y: 2026, m: 6, d: 4, label: 'Corpus Christi'}, {y: 2026, m: 9, d: 7, label: 'Independência'}, {y: 2026, m: 10, d: 12, label: 'Nsa Sra Aparecida'}, {y: 2026, m: 11, d: 2, label: 'Finados'}, {y: 2026, m: 11, d: 15, label: 'Proclamação da República'}, {y: 2026, m: 11, d: 20, label: 'Zumbi dos Palmares'}, {y: 2026, m: 12, d: 25, label: 'Natal'},
+        {y: 2027, m: 1, d: 1, label: 'Ano Novo'}, {y: 2027, m: 2, d: 8, label: 'Feriado'}, {y: 2027, m: 2, d: 9, label: 'Feriado'}, {y: 2027, m: 4, d: 21, label: 'Tiradentes'}, {y: 2027, m: 5, d: 1, label: 'Dia do Trabalho'}, {y: 2027, m: 9, d: 7, label: 'Independência'}, {y: 2027, m: 10, d: 12, label: 'Nsa Sra Aparecida'}, {y: 2027, m: 11, d: 2, label: 'Finados'}, {y: 2027, m: 11, d: 15, label: 'Proclamação da República'}, {y: 2027, m: 11, d: 20, label: 'Zumbi dos Palmares'}, {y: 2027, m: 12, d: 25, label: 'Natal'},
+        {y: 2028, m: 1, d: 1, label: 'Ano Novo'}
+    ];
+
+    const isEad = (y, m, d) => (eadDates[y] || []).some(date => date.m === m && date.d === d);
+
+    const generateEvents = () => {
+        const events = { 2026: {}, 2027: {}, 2028: {} };
+        const years = [2026, 2027, 2028];
+        
+        years.forEach(y => {
+            for (let m = 1; m <= 12; m++) {
+                events[y][m] = [];
+                const daysInMonth = new Date(y, m, 0).getDate();
+                
+                for (let d = 1; d <= daysInMonth; d++) {
+                    const dateObj = new Date(y, m - 1, d);
+                    const dayOfWeek = dateObj.getDay(); 
+
+                    // RECESSO 2026/2027: Até 26/01/2027
+                    if ((y === 2026 && m === 12 && d >= 20) || (y === 2027 && m === 1 && d <= 26)) {
+                        events[y][m].push({day: d, type: 'recesso', label: 'Recesso Acadêmico'});
+                        continue;
+                    }
+
+                    // RECESSO 2027/2028: De 16/12/2027 até 04/01/2028
+                    if ((y === 2027 && m === 12 && d >= 16) || (y === 2028 && m === 1 && d <= 4)) {
+                        events[y][m].push({day: d, type: 'recesso', label: 'Recesso Acadêmico'});
+                        continue;
+                    }
+
+                    // FERIADOS
+                    const holiday = holidays.find(h => h.y === y && h.m === m && h.d === d);
+                    if (holiday) {
+                        events[y][m].push({day: d, type: 'feriado', label: holiday.label});
+                        continue;
+                    }
+
+                    // AULAS QUARTAS-FEIRAS (3)
+                    if (dayOfWeek === 3) {
+                        // Caso especial: 10/02/2027 (Dia não letivo)
+                        if (y === 2027 && m === 2 && d === 10) continue;
+                        
+                        // Caso especial: Fevereiro 2028 (Somente dia 2 é EAD, demais em branco)
+                        if (y === 2028 && m === 2) {
+                            if (d === 2) {
+                                events[y][m].push({day: d, type: 'ead', label: 'Atividade EAD'});
+                            }
+                            continue;
+                        }
+
+                        if (isEad(y, m, d)) {
+                            events[y][m].push({day: d, type: 'ead', label: 'Atividade EAD'});
+                        } else {
+                            events[y][m].push({day: d, type: 'presencial', label: 'Encontro Presencial'});
+                        }
+                    }
+                }
+            }
+        });
+        return events;
+    };
+
+    const calendarEvents = generateEvents();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginForm = document.getElementById('login-form');
+      const passwordInput = document.getElementById('password-input');
+      const loginOverlay = document.getElementById('login-overlay');
+      const mainContent = document.getElementById('main-content');
+      const correctPassword = 'esp2025';
+
+      if (sessionStorage.getItem('logged_in') === 'true') showMainContent();
+
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (passwordInput.value === correctPassword) {
+          sessionStorage.setItem('logged_in', 'true');
+          showMainContent();
+        } else {
+          document.getElementById('error-message').classList.remove('hidden');
+          passwordInput.value = '';
+        }
+      });
+
+      document.getElementById('logout-btn').onclick = () => {
+        sessionStorage.removeItem('logged_in');
+        window.location.reload();
+      };
+
+      function showMainContent() {
+        loginOverlay.classList.add('opacity-0', 'pointer-events-none');
+        setTimeout(() => {
+          loginOverlay.classList.add('hidden');
+          mainContent.classList.remove('hidden');
+          setTimeout(() => mainContent.classList.add('opacity-100'), 50);
+          initializePage();
+        }, 500);
+      }
+    });
+
+    function initializePage() {
+      const accordion = document.getElementById('modules-accordion');
+      if (accordion && accordion.children.length === 0) {
+        modulesData.forEach((m, i) => {
+          const div = document.createElement('div');
+          div.className = 'border border-slate-200 rounded-2xl overflow-hidden bg-white hover:shadow-sm transition';
+          const moduleNumber = i < 10 ? i + 1 : "11 e 12";
+          div.innerHTML = `
+            <button class="w-full flex justify-between items-center p-6 text-left focus:outline-none hover:bg-slate-50 transition">
+              <div><span class="text-xs font-bold text-indigo-600 block mb-1 uppercase tracking-widest">Módulo ${moduleNumber}</span><h3 class="font-bold text-slate-800">${m.title}</h3></div>
+              <span class="text-xs font-bold text-slate-400 bg-slate-100 px-3 py-1 rounded-full">${m.ch}h</span>
+            </button>
+            <div class="module-content"><div class="p-6 bg-slate-50/50 text-sm text-slate-600">
+              <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">${m.content.map(c => `<li class="flex items-start"><span class="w-1.5 h-1.5 bg-indigo-500 rounded-full mr-2 mt-1.5 flex-shrink-0"></span><span>${c}</span></li>`).join('')}</ul>
+            </div></div>`;
+          accordion.appendChild(div);
+          div.querySelector('button').onclick = () => {
+            const content = div.querySelector('.module-content');
+            const isOpen = content.classList.contains('open');
+            document.querySelectorAll('.module-content').forEach(c => c.classList.remove('open'));
+            if (!isOpen) content.classList.add('open');
+          }
+        });
+      }
+
+      const calendarContainer = document.getElementById('calendar-container');
+      const yearButtons = document.querySelectorAll('.year-btn');
+      const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
+      const monthNames = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+
+      const eventStyles = {
+        presencial: 'bg-indigo-700 text-white shadow-md shadow-indigo-100', 
+        ead: 'bg-indigo-300 text-indigo-900 border border-indigo-400',
+        feriado: 'bg-red-500 text-white', 
+        recesso: 'bg-amber-400 text-white'
+      };
+
+      function renderCalendar(year) {
+        calendarContainer.innerHTML = '';
+        const startMonth = year === 2026 ? 2 : 0; 
+        const endMonth = year === 2028 ? 2 : 12; 
+        
+        for (let m = startMonth; m < endMonth; m++) {
+          const card = document.createElement('div');
+          card.className = 'bg-white rounded-3xl border border-slate-200 p-6 shadow-sm';
+          card.innerHTML = `<h3 class="text-lg font-bold text-slate-800 mb-6 flex justify-between"><span>${monthNames[m]}</span><span class="text-slate-300 font-normal text-sm">${year}</span></h3><div class="grid grid-cols-7 gap-y-2 text-center"></div>`;
+          const grid = card.querySelector('.grid');
+          weekDays.forEach(d => grid.innerHTML += `<div class="text-[10px] font-bold text-slate-300 uppercase mb-2">${d}</div>`);
+          
+          const first = new Date(year, m, 1).getDay();
+          const last = new Date(year, m + 1, 0).getDate();
+          for (let i = 0; i < first; i++) grid.appendChild(document.createElement('div'));
+          
+          for (let d = 1; d <= last; d++) {
+            const dayEl = document.createElement('div');
+            dayEl.className = 'calendar-day relative w-8 h-8 mx-auto text-xs rounded-xl flex items-center justify-center transition-all cursor-default';
+            dayEl.textContent = d;
+            
+            const event = calendarEvents[year]?.[m + 1]?.find(e => e.day === d);
+            if (event) {
+              dayEl.classList.add(...(eventStyles[event.type] || 'bg-slate-100').split(' '), 'font-bold');
+              dayEl.innerHTML += `<span class="tooltip">${event.label || 'Atividade'}</span>`;
+            } else {
+              dayEl.classList.add('text-slate-500', 'hover:bg-slate-50');
+            }
+            grid.appendChild(dayEl);
+          }
+          calendarContainer.appendChild(card);
+        }
+      }
+
+      yearButtons.forEach(btn => btn.onclick = () => {
+        yearButtons.forEach(b => b.className = 'year-btn bg-white text-slate-600 px-8 py-2 rounded-xl font-bold border border-slate-200 transition');
+        btn.className = 'year-btn bg-indigo-700 text-white px-8 py-2.5 rounded-xl font-bold shadow-lg shadow-indigo-200';
+        renderCalendar(parseInt(btn.dataset.year));
+      });
+
+      renderCalendar(2026);
+    }
+  </script>
+</body>
+</html>
