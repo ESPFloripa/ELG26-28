@@ -127,7 +127,6 @@
       <div class="container mx-auto px-6">
         <div class="text-center mb-10">
           <h2 class="text-3xl font-bold text-slate-800 mb-2">Calendário Acadêmico</h2>
-          <p class="text-slate-500">Cronograma de atividades exclusivo para as Quartas-feiras</p>
         </div>
 
         <!-- Legenda -->
@@ -155,7 +154,7 @@
     <section id="modulos" class="py-20 bg-white">
         <div class="container mx-auto px-6">
           <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold text-slate-800 mb-4">Estrutura Curricular</h2>
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">Matriz Curricular</h2>
             <p class="text-slate-500 max-w-2xl mx-auto">Detalhamento dos 12 módulos e objetos de aprendizagem do curso.</p>
           </div>
           <div id="modules-accordion" class="max-w-4xl mx-auto space-y-4"></div>
@@ -264,12 +263,12 @@
         {m: 8, d: 19}, {m: 9, d: 30}, {m: 10, d: 28}, {m: 12, d: 16}
       ],
       2027: [
-        {m: 1, d: 27}, {m: 4, d: 14}, {m: 6, d: 30}, // Trocado 23/06 por 30/06
-        {m: 7, d: 21}, // Trocado 14/07 por 21/07
-        {m: 8, d: 25}  // Trocado 18/08 por 25/08
+        {m: 1, d: 27}, {m: 4, d: 14}, {m: 6, d: 30}, 
+        {m: 7, d: 21}, 
+        {m: 8, d: 25}
       ],
       2028: [
-        {m: 1, d: 26}, {m: 2, d: 2} // Removido 19/01 (Presencial), mantido 26/01 e 02/02
+        {m: 1, d: 26}, {m: 2, d: 2}
       ]
     };
 
@@ -449,7 +448,7 @@
 
       yearButtons.forEach(btn => btn.onclick = () => {
         yearButtons.forEach(b => b.className = 'year-btn bg-white text-slate-600 px-8 py-2 rounded-xl font-bold border border-slate-200 transition');
-        btn.className = 'year-btn bg-indigo-700 text-white px-8 py-2.5 rounded-xl font-bold shadow-lg shadow-indigo-200';
+        btn.className = 'year-btn bg-indigo-700 text-white px-8 py-2.5 rounded-xl font-bold shadow-lg shadow-indigo-100';
         renderCalendar(parseInt(btn.dataset.year));
       });
 
