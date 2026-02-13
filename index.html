@@ -127,6 +127,7 @@
       <div class="container mx-auto px-6">
         <div class="text-center mb-10">
           <h2 class="text-3xl font-bold text-slate-800 mb-2">Calendário Acadêmico</h2>
+          <p class="text-slate-500">Cronograma de atividades exclusivo para as Quartas-feiras</p>
         </div>
 
         <!-- Legenda -->
@@ -154,7 +155,7 @@
     <section id="modulos" class="py-20 bg-white">
         <div class="container mx-auto px-6">
           <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold text-slate-800 mb-4">Matriz Curricular</h2>
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">Estrutura Curricular</h2>
             <p class="text-slate-500 max-w-2xl mx-auto">Detalhamento dos 12 módulos e objetos de aprendizagem do curso.</p>
           </div>
           <div id="modules-accordion" class="max-w-4xl mx-auto space-y-4"></div>
@@ -200,7 +201,7 @@
       {
         title: "Módulo 1 - Autoconhecimento e desenvolvimento de perfil de liderança",
         ch: 28,
-        content: ["Acolhimento", "Autoconhecimento e Estilos de Liderança", "Networking e Personal Branding", "Pertencimento", "Cultura Organizacional", "Liderança ética", "Liderança empática"]
+        content: ["Acolhimento", "Autoconhecimento e Estilos de Liderança", "Networking", "Pertencimento", "Cultura Organizacional", "Liderança ética", "Liderança empática"]
       },
       {
         title: "Módulo 2 - Trabalho em equipe e Gestão de time",
@@ -448,7 +449,7 @@
 
       yearButtons.forEach(btn => btn.onclick = () => {
         yearButtons.forEach(b => b.className = 'year-btn bg-white text-slate-600 px-8 py-2 rounded-xl font-bold border border-slate-200 transition');
-        btn.className = 'year-btn bg-indigo-700 text-white px-8 py-2.5 rounded-xl font-bold shadow-lg shadow-indigo-100';
+        btn.className = 'year-btn bg-indigo-700 text-white px-8 py-2.5 rounded-xl font-bold shadow-lg shadow-indigo-200';
         renderCalendar(parseInt(btn.dataset.year));
       });
 
