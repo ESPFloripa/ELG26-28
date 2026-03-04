@@ -127,12 +127,11 @@
       <div class="container mx-auto px-6">
         <div class="text-center mb-10">
           <h2 class="text-3xl font-bold text-slate-800 mb-2">Calendário Acadêmico</h2>
-          <p class="text-slate-500">Cronograma de atividades exclusivo para as Quartas-feiras</p>
         </div>
 
         <!-- Legenda -->
         <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 mb-10 max-w-5xl mx-auto text-center">
-            <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">Legenda de Atividades</h3>
+            <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4 text-center">Legenda de Atividades</h3>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-[10px] md:text-xs font-bold uppercase tracking-wider">
                 <div class="flex items-center justify-center"><span class="w-4 h-4 rounded bg-indigo-700 mr-2 shadow-sm"></span> <span class="text-slate-600">Encontro Presencial</span></div>
                 <div class="flex items-center justify-center"><span class="w-4 h-4 rounded bg-indigo-400 mr-2 shadow-sm"></span> <span class="text-slate-600">Atividade EAD</span></div>
@@ -166,7 +165,7 @@
     <section id="repositorio" class="py-24 bg-slate-50 border-t border-slate-200">
       <div class="container mx-auto px-6 text-center">
         <h2 class="text-3xl font-bold text-slate-800 mb-8">Repositório Central</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           <!-- Card Presença -->
           <a href="https://drive.google.com/drive/folders/1_fB4aBJlYsZjeiakcR2l8o_DwI02dc3p?usp=sharing" target="_blank" 
              class="group p-8 rounded-3xl bg-white border border-slate-200 hover:border-blue-300 hover:shadow-lg transition duration-300 text-left">
@@ -185,6 +184,16 @@
             </div>
             <h3 class="text-xl font-bold text-slate-800 mb-2">Relatório Acadêmico</h3>
             <p class="text-slate-500 text-sm">Acompanhamento de conceitos e notas finais.</p>
+          </a>
+
+          <!-- Card Certificados de Matrícula -->
+          <a href="https://drive.google.com/drive/folders/1ZLInaC7EIlwGzqzXItAtLjoCVAgdud6b?usp=sharing" target="_blank" 
+             class="group p-8 rounded-3xl bg-white border border-slate-200 hover:border-amber-300 hover:shadow-lg transition duration-300 text-left">
+            <div class="w-12 h-12 bg-amber-600 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-amber-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-800 mb-2">Certificados de Matrícula</h3>
+            <p class="text-slate-500 text-sm">Acesse e baixe o seu comprovante de matrícula oficial.</p>
           </a>
         </div>
       </div>
@@ -449,7 +458,7 @@
 
       yearButtons.forEach(btn => btn.onclick = () => {
         yearButtons.forEach(b => b.className = 'year-btn bg-white text-slate-600 px-8 py-2 rounded-xl font-bold border border-slate-200 transition');
-        btn.className = 'year-btn bg-indigo-700 text-white px-8 py-2.5 rounded-xl font-bold shadow-lg shadow-indigo-200';
+        btn.className = 'year-btn bg-indigo-700 text-white px-8 py-2.5 rounded-xl font-bold shadow-lg shadow-indigo-100';
         renderCalendar(parseInt(btn.dataset.year));
       });
 
