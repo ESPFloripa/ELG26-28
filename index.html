@@ -230,7 +230,7 @@
       {
         title: "Módulo 3 - Criatividade, adaptabilidade e trabalho em ambientes de alta pressão",
         ch: 32,
-        content: ["Inteligência Emocional e fenómenos psicológicos no contexto de liderança", "Comunicação não violenta", "Priorização e Tomada de decisão", "Adaptabilidade, criatividade e Inovação", "Ferramentas inovativas aplicadas ao setor saúde", "Desing Thinking"]
+        content: ["Inteligência Emocional e fenômenos psicológicos no contexto de liderança", "Comunicação não violenta", "Priorização e Tomada de decisão", "Adaptabilidade, criatividade e Inovação", "Ferramentas inovativas aplicadas ao setor saúde", "Desing Thinking"]
       },
       {
         title: "Módulo 4 - Comunicação Efetiva",
@@ -278,9 +278,10 @@
     const eadDates = {
       2026: [
         {m: 4, d: 8}, {m: 4, d: 15}, {m: 4, d: 29}, 
-        {m: 5, d: 13}, {m: 6, d: 3}, {m: 7, d: 1}, 
-        {m: 7, d: 22}, {m: 7, d: 29}, {m: 8, d: 5}, 
-        {m: 8, d: 19}, {m: 9, d: 30}, {m: 10, d: 28}, {m: 12, d: 16}
+        {m: 5, d: 13}, {m: 5, d: 20}, {m: 6, d: 3}, // Adicionado 20/05 como EAD
+        {m: 7, d: 1}, {m: 7, d: 22}, {m: 7, d: 29}, 
+        {m: 8, d: 5}, {m: 8, d: 19}, {m: 9, d: 30}, 
+        {m: 10, d: 28}, {m: 12, d: 16}
       ],
       2027: [
         {m: 1, d: 27}, {m: 4, d: 14}, {m: 6, d: 30}, 
@@ -467,7 +468,7 @@
       }
 
       yearButtons.forEach(btn => btn.onclick = () => {
-        yearButtons.forEach(b => b.className = 'year-btn bg-white text-slate-600 px-8 py-2 rounded-xl font-bold border border-slate-200 transition');
+        yearButtons.forEach(b => b.className = 'year-btn bg-white text-slate-600 px-8 py-2.5 rounded-xl font-bold border border-slate-200 transition');
         btn.className = 'year-btn bg-indigo-700 text-white px-8 py-2.5 rounded-xl font-bold shadow-lg shadow-indigo-100';
         renderCalendar(parseInt(btn.dataset.year));
       });
