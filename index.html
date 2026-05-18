@@ -214,7 +214,7 @@
     </footer>
   </div>
 
-  <script>
+    <script>
     // DADOS DOS MÓDULOS
     const modulesData = [
       {
@@ -274,32 +274,37 @@
       }
     ];
 
-    // CONFIGURAÇÃO DO CALENDÁRIO
-    const eadDates = {
-      2026: [
-        {m: 4, d: 8}, {m: 4, d: 15}, {m: 4, d: 29}, 
-        {m: 5, d: 13}, {m: 5, d: 20}, {m: 6, d: 3}, // Adicionado 20/05 como EAD
-        {m: 7, d: 1}, {m: 7, d: 22}, {m: 7, d: 29}, 
-        {m: 8, d: 5}, {m: 8, d: 19}, {m: 9, d: 30}, 
-        {m: 10, d: 28}, {m: 12, d: 16}
-      ],
-      2027: [
-        {m: 1, d: 27}, {m: 4, d: 14}, {m: 6, d: 30}, 
-        {m: 7, d: 21}, 
-        {m: 8, d: 25}
-      ],
-      2028: [
-        {m: 1, d: 26}, {m: 2, d: 2}
-      ]
+    // CONFIGURAÇÃO DO CALENDÁRIO BASEADA ESTRITAMENTE NO EXCEL ANEXADO
+    const scheduleMap = {
+      // 2026
+      "2026-03-04": "presencial", "2026-03-11": "presencial", "2026-03-18": "presencial", "2026-03-25": "presencial",
+      "2026-04-01": "presencial", "2026-04-08": "ead", "2026-04-15": "ead", "2026-04-22": "presencial", "2026-04-29": "ead",
+      "2026-05-06": "presencial", "2026-05-13": "ead", "2026-05-20": "ead", "2026-05-27": "presencial",
+      "2026-06-03": "ead", "2026-06-10": "presencial", "2026-06-17": "presencial", "2026-06-24": "presencial",
+      "2026-07-01": "ead", "2026-07-08": "presencial", "2026-07-15": "presencial", "2026-07-22": "ead", "2026-07-29": "ead",
+      "2026-08-05": "presencial", "2026-08-12": "ead", "2026-08-19": "ead", "2026-08-26": "presencial",
+      "2026-09-02": "presencial", "2026-09-09": "presencial", "2026-09-16": "presencial", "2026-09-23": "presencial", "2026-09-30": "ead",
+      "2026-10-07": "presencial", "2026-10-14": "presencial", "2026-10-21": "presencial", "2026-10-28": "ead",
+      "2026-11-04": "presencial", "2026-11-11": "presencial", "2026-11-18": "presencial", "2026-11-25": "presencial",
+      "2026-12-02": "presencial", "2026-12-09": "presencial", "2026-12-16": "ead",
+      
+      // 2027
+      "2027-01-27": "ead", "2027-02-03": "ead", 
+      "2027-02-17": "presencial", "2027-02-24": "presencial",
+      "2027-03-03": "presencial", "2027-03-10": "presencial", "2027-03-17": "ead", "2027-03-24": "presencial", "2027-03-31": "presencial",
+      "2027-04-07": "presencial", "2027-04-14": "presencial", "2027-04-28": "ead",
+      "2027-05-05": "presencial", "2027-05-12": "presencial", "2027-05-19": "presencial", "2027-05-26": "presencial",
+      "2027-06-02": "presencial", "2027-06-09": "presencial", "2027-06-16": "presencial", "2027-06-23": "presencial", "2027-06-30": "ead",
+      "2027-07-07": "presencial", "2027-07-14": "presencial", "2027-07-21": "presencial", "2027-07-28": "presencial",
+      "2027-08-04": "presencial", "2027-08-11": "presencial", "2027-08-18": "ead", "2027-08-25": "presencial",
+      "2027-09-01": "presencial", "2027-09-08": "presencial", "2027-09-15": "presencial", "2027-09-22": "presencial", "2027-09-29": "presencial",
+      "2027-10-06": "presencial", "2027-10-13": "presencial", "2027-10-20": "presencial", "2027-10-27": "presencial",
+      "2027-11-03": "presencial", "2027-11-10": "presencial", "2027-11-17": "presencial", "2027-11-24": "presencial",
+      "2027-12-01": "presencial", "2027-12-08": "presencial", "2027-12-15": "presencial",
+      
+      // 2028
+      "2028-01-05": "presencial", "2028-01-12": "ead", "2028-01-19": "ead"
     };
-
-    const holidays = [
-        {y: 2026, m: 4, d: 21, label: 'Tiradentes'}, {y: 2026, m: 5, d: 1, label: 'Dia do Trabalho'}, {y: 2026, m: 6, d: 4, label: 'Corpus Christi'}, {y: 2026, m: 9, d: 7, label: 'Independência'}, {y: 2026, m: 10, d: 12, label: 'Nsa Sra Aparecida'}, {y: 2026, m: 11, d: 2, label: 'Finados'}, {y: 2026, m: 11, d: 15, label: 'Proclamação da República'}, {y: 2026, m: 11, d: 20, label: 'Zumbi dos Palmares'}, {y: 2026, m: 12, d: 25, label: 'Natal'},
-        {y: 2027, m: 1, d: 1, label: 'Ano Novo'}, {y: 2027, m: 2, d: 8, label: 'Feriado'}, {y: 2027, m: 2, d: 9, label: 'Feriado'}, {y: 2027, m: 4, d: 21, label: 'Tiradentes'}, {y: 2027, m: 5, d: 1, label: 'Dia do Trabalho'}, {y: 2027, m: 9, d: 7, label: 'Independência'}, {y: 2027, m: 10, d: 12, label: 'Nsa Sra Aparecida'}, {y: 2027, m: 11, d: 2, label: 'Finados'}, {y: 2027, m: 11, d: 15, label: 'Proclamação da República'}, {y: 2027, m: 11, d: 20, label: 'Zumbi dos Palmares'}, {y: 2027, m: 12, d: 25, label: 'Natal'},
-        {y: 2028, m: 1, d: 1, label: 'Ano Novo'}
-    ];
-
-    const isEad = (y, m, d) => (eadDates[y] || []).some(date => date.m === m && date.d === d);
 
     const generateEvents = () => {
         const events = { 2026: {}, 2027: {}, 2028: {} };
@@ -311,45 +316,24 @@
                 const daysInMonth = new Date(y, m, 0).getDate();
                 
                 for (let d = 1; d <= daysInMonth; d++) {
+                    const dateStr = `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
                     const dateObj = new Date(y, m - 1, d);
                     const dayOfWeek = dateObj.getDay(); 
 
-                    // RECESSO 2026/2027: Até 26/01/2027
-                    if ((y === 2026 && m === 12 && d >= 20) || (y === 2027 && m === 1 && d <= 26)) {
-                        events[y][m].push({day: d, type: 'recesso', label: 'Recesso Acadêmico'});
-                        continue;
-                    }
-
-                    // RECESSO 2027/2028: De 16/12/2027 até 04/01/2028
-                    if ((y === 2027 && m === 12 && d >= 16) || (y === 2028 && m === 1 && d <= 4)) {
-                        events[y][m].push({day: d, type: 'recesso', label: 'Recesso Acadêmico'});
-                        continue;
-                    }
-
-                    // FERIADOS
-                    const holiday = holidays.find(h => h.y === y && h.m === m && h.d === d);
-                    if (holiday) {
-                        events[y][m].push({day: d, type: 'feriado', label: holiday.label});
-                        continue;
-                    }
-
-                    // AULAS QUARTAS-FEIRAS (3)
-                    if (dayOfWeek === 3) {
-                        // Caso especial: 10/02/2027 (Dia não letivo)
-                        if (y === 2027 && m === 2 && d === 10) continue;
-                        
-                        // Caso especial: Fevereiro 2028 (Somente dia 2 é EAD, demais em branco)
-                        if (y === 2028 && m === 2) {
-                            if (d === 2) {
-                                events[y][m].push({day: d, type: 'ead', label: 'Atividade EAD'});
-                            }
-                            continue;
-                        }
-
-                        if (isEad(y, m, d)) {
-                            events[y][m].push({day: d, type: 'ead', label: 'Atividade EAD'});
-                        } else {
-                            events[y][m].push({day: d, type: 'presencial', label: 'Encontro Presencial'});
+                    // Busca a data exata no mapa do Excel
+                    if (scheduleMap[dateStr] === "presencial") {
+                        events[y][m].push({day: d, type: 'presencial', label: 'Encontro Presencial'});
+                    } else if (scheduleMap[dateStr] === "ead") {
+                        events[y][m].push({day: d, type: 'ead', label: 'Atividade EAD'});
+                    } else if (dayOfWeek === 3) {
+                        // Quartas-feiras que NÃO estão no Excel são avaliadas
+                        if ((y === 2026 && m === 12 && d > 16) || 
+                            (y === 2027 && m === 1 && d < 27) ||
+                            (y === 2027 && m === 12 && d > 15) || 
+                            (y === 2028 && m === 1 && d < 5)) {
+                            events[y][m].push({day: d, type: 'recesso', label: 'Recesso Acadêmico'});
+                        } else if (y >= 2026 && !(y === 2026 && m < 3)) {
+                            events[y][m].push({day: d, type: 'feriado', label: 'Não Letivo / Feriado'});
                         }
                     }
                 }
