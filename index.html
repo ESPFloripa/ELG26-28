@@ -154,7 +154,7 @@
     <section id="modulos" class="py-20 bg-white">
         <div class="container mx-auto px-6">
           <div class="text-center mb-16">
-            <h2 class="text-3xl font-bold text-slate-800 mb-4">Matriz Curricular</h2>
+            <h2 class="text-3xl font-bold text-slate-800 mb-4">Estrutura Curricular</h2>
             <p class="text-slate-500 max-w-2xl mx-auto">Detalhamento dos 12 módulos e objetos de aprendizagem do curso.</p>
           </div>
           <div id="modules-accordion" class="max-w-4xl mx-auto space-y-4"></div>
@@ -214,7 +214,7 @@
     </footer>
   </div>
 
-    <script>
+  <script>
     // DADOS DOS MÓDULOS
     const modulesData = [
       {
@@ -289,7 +289,7 @@
       "2026-12-02": "presencial", "2026-12-09": "presencial", "2026-12-16": "ead",
       
       // 2027
-      "2027-01-27": "ead", "2027-02-03": "ead", 
+      "2027-01-27": "ead", "2027-02-03": "presencial", 
       "2027-02-17": "presencial", "2027-02-24": "presencial",
       "2027-03-03": "presencial", "2027-03-10": "presencial", "2027-03-17": "ead", "2027-03-24": "presencial", "2027-03-31": "presencial",
       "2027-04-07": "presencial", "2027-04-14": "presencial", "2027-04-28": "ead",
@@ -305,6 +305,12 @@
       // 2028
       "2028-01-05": "presencial", "2028-01-12": "ead", "2028-01-19": "ead"
     };
+
+    const holidays = [
+        {y: 2026, m: 4, d: 21, label: 'Tiradentes'}, {y: 2026, m: 5, d: 1, label: 'Dia do Trabalho'}, {y: 2026, m: 6, d: 4, label: 'Corpus Christi'}, {y: 2026, m: 9, d: 7, label: 'Independência'}, {y: 2026, m: 10, d: 12, label: 'Nsa Sra Aparecida'}, {y: 2026, m: 11, d: 2, label: 'Finados'}, {y: 2026, m: 11, d: 15, label: 'Proclamação da República'}, {y: 2026, m: 11, d: 20, label: 'Zumbi dos Palmares'}, {y: 2026, m: 12, d: 25, label: 'Natal'},
+        {y: 2027, m: 1, d: 1, label: 'Ano Novo'}, {y: 2027, m: 2, d: 8, label: 'Feriado'}, {y: 2027, m: 2, d: 9, label: 'Feriado'}, {y: 2027, m: 4, d: 21, label: 'Tiradentes'}, {y: 2027, m: 5, d: 1, label: 'Dia do Trabalho'}, {y: 2027, m: 9, d: 7, label: 'Independência'}, {y: 2027, m: 10, d: 12, label: 'Nsa Sra Aparecida'}, {y: 2027, m: 11, d: 2, label: 'Finados'}, {y: 2027, m: 11, d: 15, label: 'Proclamação da República'}, {y: 2027, m: 11, d: 20, label: 'Zumbi dos Palmares'}, {y: 2027, m: 12, d: 25, label: 'Natal'},
+        {y: 2028, m: 1, d: 1, label: 'Ano Novo'}
+    ];
 
     const generateEvents = () => {
         const events = { 2026: {}, 2027: {}, 2028: {} };
